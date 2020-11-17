@@ -6,7 +6,7 @@ import time
 keyboard = Controller()
 
 def releaseAll():
-    time.sleep(0.3)
+    time.sleep(0.1)
     keyboard.release(Key.up)
     keyboard.release(Key.down)
     keyboard.release(Key.left)
@@ -25,9 +25,13 @@ def pressKeyboard(str):
 
 # Create a TCP/IP socket for server
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# name = socket.gethostname()
+# print(name)
+# ip = socket.gethostbyname(name)
+# print(ip)
 
 # Bind the socket to the port
-serverAddress = ('localhost', 10000)
+serverAddress = ('192.168.0.104', 10000)
 server.bind(serverAddress)
 
 print("Server successfully created...")
@@ -51,6 +55,8 @@ while True:
             if not dataByte:
                 break
             dataChar = dataByte.decode('utf-8')
+            if dataChar == 'Q':
+                continue
             print(dataChar)
             pressKeyboard(dataChar)      
     finally:
